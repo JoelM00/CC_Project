@@ -5,9 +5,9 @@ import java.nio.ByteBuffer;
 import java.util.Scanner;
 
 public class HttpWorker implements Runnable {
-    Socket s;
-    BufferedReader in;
-    PrintWriter out;
+    private Socket s;
+    private BufferedReader in;
+    private PrintWriter out;
 
     public HttpWorker(Socket s) throws IOException {
         this.s = s;
@@ -40,14 +40,6 @@ public class HttpWorker implements Runnable {
             System.out.println(new String(readBytes));
             //Handle Bytes
 
-            /*
-            while (sc.hasNext()) {
-                System.out.println(sc.nextLine());
-            }*/
-            /*
-            for (int i = 0; i<6; i++) {
-                System.out.println(in.readLine());
-            }*/
 
             String httpResp = "HTTP/1.1 200 OK\n" +
                     "Server: Apache\n" +
