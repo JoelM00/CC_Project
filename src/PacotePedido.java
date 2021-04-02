@@ -1,3 +1,5 @@
+import java.io.*;
+
 public class PacotePedido {
     Tupulo destino;
     Tupulo origem;
@@ -9,17 +11,25 @@ public class PacotePedido {
         this.ficheiroPedido = ficheiroPedido;
     }
 
-    public static byte[] compactar(PacotePedido pp) {
-        byte[] bytes = new byte[1024];
-        //Converter o tupulo e os ficheiros num array de bytes.
-        //Antes de converter a String (nome) de cada ficheiro, escrever o seu tamanho
-        return bytes;
+    public static byte[] compactar(PacotePedido pp) throws IOException {
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        DataOutputStream d = new DataOutputStream(out);
+        Tupulo.compactar(pp.origem,d);
+        Tupulo.compactar(pp.destino,d);
+        d.writeInt(pp.ficheiroPedido.length());
+        d.writeChars(pp.ficheiroPedido);
+
+        return out.toByteArray();
     }
 
-    public static PacotePedido descompactar(byte[] dados) {
-        PacoteRegisto p;
-        //Converter os bytes num tupulo e lista de ficheiros
-        return null;
+    public static PacotePedido descompactar(byte[] dados) throws IOException {
+        ByteArrayInputStream in = new ByteArrayInputStream(dados);
+        DataInputStream d = new DataInputStream(in);
+        Tupulo or = Tupulo.descompactar(d);
+        Tupulo dest = Tupulo.descompactar(d);
+        byte[] str = new byte[d.readInt()];
+        d.readFully(str);
+        String fic = new String(str);
+        return new PacotePedido(or,dest,fic);
     }
-
 }

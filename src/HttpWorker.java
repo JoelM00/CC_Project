@@ -58,13 +58,17 @@ public class HttpWorker implements Runnable {
                     "Content-Type: text\n" +
                     "\n";
 
+            //Manda o cabecalho
             out.print(httpResp);
             out.flush();
+            //Manda os pacotes do ficheiro
             for (PacoteChunk pc : pacoteComFicheiroPedido) {
                 out.println(new String(pc.dados));
                 out.flush();
             }
 
-        } catch (Exception e) {}
+        } catch (Exception e) {
+            System.out.println("HttpWorker error!");
+        }
     }
 }

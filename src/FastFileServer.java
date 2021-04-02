@@ -9,14 +9,14 @@ import java.util.Map;
 
 public class FastFileServer {
     public static void main(String[] args) throws IOException {
-        DatagramSocket s = new DatagramSocket(10000);
+        DatagramSocket s = new DatagramSocket(9998);
         Map<String,byte[]> ficheiros = new HashMap<>();
         Tupulo gateway = new Tupulo(InetAddress.getLocalHost(),6000);
-        Tupulo origem = new Tupulo(InetAddress.getLocalHost(),10000);//para ja ambos tem o mesmo endereco
+        Tupulo origem = new Tupulo(InetAddress.getLocalHost(),9998);//para ja ambos tem o mesmo endereco
 
         byte[] pacote = new byte[1024];
 
-        ficheiros.put("ola.txt","algum lixo".getBytes()); //adicionei um ficheiro a servir
+        ficheiros.put("xau.txt","algum lixo".getBytes()); //adicionei um ficheiro a servir
 
         PacoteRegisto pr = new PacoteRegisto(gateway,origem,new ArrayList<>(ficheiros.keySet())); //crio um pacote de registo
 

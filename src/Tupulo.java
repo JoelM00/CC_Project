@@ -1,4 +1,7 @@
+import java.io.*;
 import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.nio.ByteBuffer;
 
 public class Tupulo {
     InetAddress endereco;
@@ -9,13 +12,26 @@ public class Tupulo {
         this.porta = porta;
     }
 
-    public byte[] compactar(Tupulo t) {
-        return null;
+    public static void compactar(Tupulo t,DataOutputStream d) throws IOException {
+        d.writeInt(t.endereco.getAddress().length);
+        d.write(t.endereco.getAddress());
+        d.writeInt(t.porta);
     }
 
-    public Tupulo descompactar(byte[] dados) {
-
-        return null;
+    public static Tupulo descompactar(DataInputStream d) throws IOException {
+        int length = d.readInt();
+        byte[] e = new byte[length];
+        d.readFully(e);
+        InetAddress end = InetAddress.getByAddress(e);
+        int pt = d.readInt();
+        return new Tupulo(end,pt);
     }
 
+    @Override
+    public String toString() {
+        return "Tupulo{" +
+                "endereco=" + endereco +
+                ", porta=" + porta +
+                '}';
+    }
 }
