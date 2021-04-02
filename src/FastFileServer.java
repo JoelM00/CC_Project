@@ -14,6 +14,9 @@ public class FastFileServer {
 
         byte[] pacote = new byte[1024];
 
+        DatagramPacket pedidoDeRegistoNoGW = new DatagramPacket(pacote, pacote.length);
+
+
         new Thread(new FastFileWorker("ola.txt", 0, 64,s,6000,enderecoDoGW)).start();
         /*
         while (true) {
