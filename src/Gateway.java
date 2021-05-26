@@ -9,7 +9,7 @@ public class Gateway {
         ServerSocket ss = new ServerSocket(50000); //porta de servico para os clientes
         int portaParaRegistoNoGW = 6000;
         RegistosFFS registosFFS = new RegistosFFS();
-        InetAddress endereco = InetAddress.getByName(args[0]);
+        InetAddress endereco = InetAddress.getByName("192.168.1.71");
 
         //Ativa um thread que vai escutar costantemente a porta no qual os novos FFS se devem ligar para se registar
         new Thread(new GatewayWorkerRegister(endereco,portaParaRegistoNoGW,registosFFS)).start();
